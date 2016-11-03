@@ -1,0 +1,62 @@
+<atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
+    <plugin-info>
+        <description>${project.description}</description>
+        <version>${project.version}</version>
+        <vendor name="${project.organization.name}" url="${project.organization.url}" />
+        <param name="plugin-icon">images/pluginIcon.png</param>
+        <param name="plugin-logo">images/pluginLogo.png</param>
+    </plugin-info>
+
+    <!-- add our i18n resource -->
+    <resource type="i18n" name="i18n" location="example-project"/>
+    
+    <!-- add our web resources -->
+    <web-resource key="example-project-resources" name="example-project Web Resources">
+        <dependency>com.atlassian.auiplugin:ajs</dependency>
+        
+        <resource type="download" name="example-project.css" location="/css/example-project.css"/>
+        <resource type="download" name="example-project.js" location="/js/example-project.js"/>
+        <resource type="download" name="images/" location="/images"/>
+
+        <context>example-project</context>
+    </web-resource>
+
+    <servlet name="Admin page servlet" i18n-name-key="morenkov.administration-servlet.name"
+             key="administration-example-servlet"
+             class="com.solarwinds.jira.plugins.properties.servlet.ConfigImportExportServlet">
+        <description key="com.morenkov.jira.servlet.AdministrationExampleServlet">
+            Administration example servlet.
+        </description>
+        <url-pattern>/administration-example</url-pattern>
+    </servlet>
+
+    <web-section name="Administrative section"
+                 i18n-name-key="morenkov.integration-section.name" key="morenkov.administration-section"
+                 location="admin_plugins_menu" weight="1000">
+        <description key="morenkov.administration-section.description">
+            Administration section
+        </description>
+        <label key="morenkov.administration-section.label"/>
+        <tooltip>Example Web Section</tooltip>
+    </web-section>
+
+    <web-item name="Administration Item" i18n-name-key="morenkov.web-item.name"
+              key="morenkov.web-item" section="admin_plugins_menu/morenkov.administration-section"
+              weight="600">
+        <description key="moerenkov.web-item.description">Administration Section Setup</description>
+        <label key="morenkov.web-item.label"/>
+        <link linkId="porperties-admin-link">/plugins/servlet/comment-properties</link>
+    </web-item>
+
+    <rest name="Admin Page Resource" i18n-name-key="admin-page-resource.name"
+          key="admin-page-resource" path="/adminpage-example" version="1.0">
+        <description key="admin-page-resource.description">Rest endpoint for work with REST table</description>
+        <package>com.morenkov.jira.rest</package>
+    </rest>
+
+    <ao key="ao-module">
+        <description>The module configuring the Active Objects service used by this plugin</description>
+        <entity>com.luxoft.luxproject.integration.plugin.persistence.model.Project</entity>
+    </ao>
+    
+</atlassian-plugin>

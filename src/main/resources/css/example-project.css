@@ -1,0 +1,6 @@
+#property-validation-messages {
+    position: fixed;
+    top: 71px;
+    right: 30px;
+    z-index: 4000;
+}

@@ -1,0 +1,21 @@
+<html>
+<head>
+    $webResourceManager.requireResourcesForContext(
+        "com.morenkov.jira.example-project:example-project-resources")
+    <meta name="decorator" content="atl.admin">
+    <meta name="admin.active.section" content="admin_plugins_menu/solarwinds.integration-section"/>
+    <title>$i18n.getText("morenkov.administtration-section.servlet.title")</title>
+</head>
+<body class="page-type-admin">
+<div class="aui-page-header">
+    <div class="aui-page-header-inner">
+        <div class="aui-page-header-main">
+            <h1 class="commentPropertiesHeader">$i18n.getText("morenkov.administtration-section.admin.label")</h1>
+        </div>
+    </div>
+</div>
+<div id="property-validation-messages"></div>
+
+<table id="property-config-table"></table>
+</body>
+</html>
