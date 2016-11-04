@@ -1,5 +1,6 @@
 package com.morenkov.jira.rest;
 
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.sal.api.message.I18nResolver;
 import com.google.common.collect.ImmutableMap;
 import com.morenkov.jira.dto.AdminConfig;
@@ -7,6 +8,8 @@ import com.morenkov.jira.service.AdminConfigService;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
@@ -20,7 +23,8 @@ import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.List;
 
-import static com.atlassian.gzipfilter.org.apache.commons.lang.StringUtils.isEmpty;
+import static org.springframework.util.StringUtils.isEmpty;
+
 
 /**
  * Rest endpoint for property addition.
@@ -28,6 +32,7 @@ import static com.atlassian.gzipfilter.org.apache.commons.lang.StringUtils.isEmp
 @Path("/config")
 @Consumes({MediaType.APPLICATION_JSON})
 @Produces({MediaType.APPLICATION_JSON})
+@Component
 public class AdminPageResource {
 
     private static final Logger LOG = LoggerFactory.getLogger(AdminPageResource.class);
@@ -35,8 +40,9 @@ public class AdminPageResource {
     private final AdminConfigService adminConfigService;
     private final I18nResolver i18n;
 
+    @Autowired
     public AdminPageResource(AdminConfigService adminConfigService
-            , I18nResolver i18n) {
+            , @ComponentImport I18nResolver i18n) {
         this.adminConfigService = adminConfigService;
         this.i18n = i18n;
     }
@@ -83,23 +89,23 @@ public class AdminPageResource {
 
     private String validateInput(AdminConfig config) {
         if (config == null) {
-            return i18n.getText("solarwinds.comment-property.admin.values-empty");
+            return i18n.getText("morenkov.admin-page.values-empty");
         }
         if (isEmpty(config.getPropertyKey())) {
-            return i18n.getText("solarwinds.comment-property.admin.property-key-empty");
+            return i18n.getText("morenkov.admin-page.property-key-empty");
         }
         if (isEmpty(config.getDisplayName())) {
-            return i18n.getText("solarwinds.comment-property.admin.display-name-empty");
+            return i18n.getText("morenkov.admin-page.admin.display-name-empty");
         }
         if (config.getPropertyKey().indexOf(' ') != -1) {
-            return i18n.getText("solarwinds.comment-property.admin.key-with-space");
+            return i18n.getText("morenkov.admin-page.key-with-space");
         }
 
 
         AdminConfig propertyConfigByKey = adminConfigService.getPropertyConfigByKey(config.getPropertyKey());
         if (propertyConfigByKey != null) {
             LOG.error("The entry with such key already exists");
-            return i18n.getText("solarwinds.comment-property.admin.key-exists");
+            return i18n.getText("morenkov.admin-page.key-exists");
         }
 
         return null;
@@ -107,16 +113,16 @@ public class AdminPageResource {
 
     private String validateInputForEdit(AdminConfig config) {
             if (config == null || config.getId() == null) {
-                LOG.error("Invalid config file {}", config);
-                return i18n.getText("solarwinds.comment-property.admin.values-empty");
+                LOG.error("Invalid config {}", config);
+                return i18n.getText("morenkov.admin-page.values-empty");
             }
 
             if (config.getPropertyKey() != null) {
                 if (config.getPropertyKey().indexOf(' ') != -1) {
-                    return i18n.getText("solarwinds.comment-property.admin.key-with-space");
+                    return i18n.getText("morenkov.admin-page.key-with-space");
                 }
                 if (StringUtils.isEmpty(config.getPropertyKey())) {
-                    return i18n.getText("solarwinds.comment-property.admin.property-key-empty");
+                    return i18n.getText("morenkov.admin-page.property-key-empty");
                 }
 
 
@@ -124,12 +130,12 @@ public class AdminPageResource {
                         adminConfigService.getPropertyConfigByKey(config.getPropertyKey());
                 if (propertyConfigByKey != null) {
                     LOG.error("The entry with such key already exists");
-                    return i18n.getText("solarwinds.comment-property.admin.key-exists");
+                    return i18n.getText("morenkov.admin-page.key-exists");
                 }
             }
             if ("".equals(config.getDisplayName())) {
                 LOG.error("The entry with such key already exists");
-                return i18n.getText("solarwinds.comment-property.admin.display-name-empty");
+                return i18n.getText("morenkov.admin-page.admin.display-name-empty");
             }
         return null;
     }

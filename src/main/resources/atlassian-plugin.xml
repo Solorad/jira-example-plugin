@@ -13,7 +13,8 @@
     <!-- add our web resources -->
     <web-resource key="example-project-resources" name="example-project Web Resources">
         <dependency>com.atlassian.auiplugin:ajs</dependency>
-        
+        <dependency>com.atlassian.auiplugin:aui-experimental-restfultable</dependency>
+
         <resource type="download" name="example-project.css" location="/css/example-project.css"/>
         <resource type="download" name="example-project.js" location="/js/example-project.js"/>
         <resource type="download" name="images/" location="/images"/>
@@ -23,8 +24,8 @@
 
     <servlet name="Admin page servlet" i18n-name-key="morenkov.administration-servlet.name"
              key="administration-example-servlet"
-             class="com.solarwinds.jira.plugins.properties.servlet.ConfigImportExportServlet">
-        <description key="com.morenkov.jira.servlet.AdministrationExampleServlet">
+             class="com.morenkov.jira.servlet.AdministrationExampleServlet">
+        <description key="morenkov.administration-servlet.description">
             Administration example servlet.
         </description>
         <url-pattern>/administration-example</url-pattern>
@@ -45,7 +46,7 @@
               weight="600">
         <description key="moerenkov.web-item.description">Administration Section Setup</description>
         <label key="morenkov.web-item.label"/>
-        <link linkId="porperties-admin-link">/plugins/servlet/comment-properties</link>
+        <link linkId="porperties-admin-link">/plugins/servlet/administration-example</link>
     </web-item>
 
     <rest name="Admin Page Resource" i18n-name-key="admin-page-resource.name"
@@ -56,7 +57,7 @@
 
     <ao key="ao-module">
         <description>The module configuring the Active Objects service used by this plugin</description>
-        <entity>com.luxoft.luxproject.integration.plugin.persistence.model.Project</entity>
+        <entity>com.morenkov.jira.ao.AdminConfigEntity</entity>
     </ao>
     
 </atlassian-plugin>

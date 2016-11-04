@@ -5,7 +5,10 @@ import com.atlassian.jira.security.GlobalPermissionManager;
 import com.atlassian.jira.security.JiraAuthenticationContext;
 import com.atlassian.jira.user.ApplicationUser;
 import com.atlassian.jira.util.velocity.VelocityRequestContextFactory;
+import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.atlassian.templaterenderer.TemplateRenderer;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +24,7 @@ import java.util.Map;
  *
  * @author emorenkov
  */
+@Component
 public class AdministrationExampleServlet extends HttpServlet {
     private static final String TEMPLATE_PATH = "templates/servlet/admin-page.vm";
     private final GlobalPermissionManager permissionManager;
@@ -29,11 +33,11 @@ public class AdministrationExampleServlet extends HttpServlet {
     private final VelocityRequestContextFactory contextFactory;
 
 
-
-    public AdministrationExampleServlet(GlobalPermissionManager permissionManager
-            , TemplateRenderer templateRenderer
-            , JiraAuthenticationContext authContext
-            , VelocityRequestContextFactory contextFactory) {
+    @Autowired
+    public AdministrationExampleServlet(@ComponentImport GlobalPermissionManager permissionManager
+            , @ComponentImport TemplateRenderer templateRenderer
+            , @ComponentImport JiraAuthenticationContext authContext
+            , @ComponentImport VelocityRequestContextFactory contextFactory) {
         this.permissionManager = permissionManager;
         this.templateRenderer = templateRenderer;
         this.authContext = authContext;

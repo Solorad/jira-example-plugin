@@ -8,6 +8,7 @@ import net.java.ao.DBParam;
 import net.java.ao.Query;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -25,6 +26,7 @@ public class AdminConfigService {
 
     private final ActiveObjects ao;
 
+    @Autowired
     public AdminConfigService(@ComponentImport ActiveObjects ao) {
         this.ao = ao;
     }
@@ -44,8 +46,7 @@ public class AdminConfigService {
 
     public List<AdminConfig> getAllPropertyConfigs() {
         List<AdminConfig> propertyConfigs = new ArrayList<>();
-        AdminConfigEntity[] adminConfigEntities =
-                ao.find(AdminConfigEntity.class, Query.select().order("PRIORITY ASC"));
+        AdminConfigEntity[] adminConfigEntities = ao.find(AdminConfigEntity.class);
         for (AdminConfigEntity entity : adminConfigEntities) {
             AdminConfig config = transformToDto(entity);
             propertyConfigs.add(config);
