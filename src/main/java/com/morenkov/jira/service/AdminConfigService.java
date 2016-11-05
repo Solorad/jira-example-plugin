@@ -37,7 +37,7 @@ public class AdminConfigService {
             return null;
         }
         AdminConfigEntity[] propertyConfigs = ao.find(AdminConfigEntity.class,
-                Query.select().where("PROPERTY_KEY = ?", key));
+                                                      Query.select().where("PROPERTY_KEY = ?", key));
         if (propertyConfigs == null || propertyConfigs.length == 0) {
             return null;
         }
@@ -64,9 +64,10 @@ public class AdminConfigService {
         if (config.getId() == null
             || (entity = ao.get(AdminConfigEntity.class, config.getId())) == null) {
             entity = ao.create(AdminConfigEntity.class,
-                    new DBParam("PROPERTY_KEY", config.getPropertyKey()),
-                    new DBParam("DISPLAY_NAME", config.getDisplayName()),
-                    new DBParam("CREATE_DATE", Calendar.getInstance().getTime()));
+                               new DBParam("PROPERTY_KEY", config.getPropertyKey()),
+                               new DBParam("DISPLAY_NAME", config.getDisplayName()),
+                               new DBParam("DESCRIPTION", config.getDescription()),
+                               new DBParam("CREATE_DATE", Calendar.getInstance().getTime()));
         } else if (!entity.getPropertyKey().equals(config.getPropertyKey())
                    || !entity.getDisplayName().equals(config.getDisplayName())) {
 
@@ -108,6 +109,7 @@ public class AdminConfigService {
         return new AdminConfig(
                 entity.getID()
                 , entity.getPropertyKey()
-                , entity.getDisplayName());
+                , entity.getDisplayName()
+                , entity.getDescription());
     }
 }

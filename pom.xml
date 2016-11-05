@@ -7,15 +7,16 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.morenkov.jira</groupId>
     <artifactId>example-project</artifactId>
-    <version>1.0.0-SNAPSHOT</version>
+    <version>1.0.0</version>
 
     <organization>
         <name>Morenkov Test</name>
+
         <url>http://www.example.com/</url>
     </organization>
 
     <name>Morenkov Test Project</name>
-    <description>This is the com.morenkov.jira:example-project plugin for Atlassian JIRA.</description>
+    <description>This is demo JIRA plugin with extra "Admin page" and AUI Restful table on it.</description>
     <packaging>atlassian-plugin</packaging>
 
     <repositories>

@@ -16,14 +16,17 @@ public class AdminConfig {
     private String propertyKey;
     @XmlElement (name = "displayName")
     private String displayName;
+    @XmlElement (name = "description")
+    private String description;
 
     public AdminConfig() {
     }
 
-    public AdminConfig(Integer id, String propertyKey, String displayName) {
+    public AdminConfig(Integer id, String propertyKey, String displayName, String description) {
         this.id = id;
         this.propertyKey = propertyKey;
         this.displayName = displayName;
+        this.description = description;
     }
 
     public Integer getId() {
@@ -48,5 +51,13 @@ public class AdminConfig {
 
     public void setDisplayName(String displayName) {
         this.displayName = displayName;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

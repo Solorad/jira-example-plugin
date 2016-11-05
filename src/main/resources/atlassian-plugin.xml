@@ -15,6 +15,10 @@
         <dependency>com.atlassian.auiplugin:ajs</dependency>
         <dependency>com.atlassian.auiplugin:aui-experimental-restfultable</dependency>
 
+        <transformation extension="js">
+            <transformer key="jsI18n"/>
+        </transformation>
+
         <resource type="download" name="example-project.css" location="/css/example-project.css"/>
         <resource type="download" name="example-project.js" location="/js/example-project.js"/>
         <resource type="download" name="images/" location="/images"/>
